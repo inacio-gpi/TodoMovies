@@ -1,9 +1,11 @@
+import 'genre_entity.dart';
+
 class MovieDetails {
   final bool adult;
   final String? backdropPath;
   final BelongsToCollection? belongsToCollection;
   final int budget;
-  final List<Genres> genres;
+  final List<Genre> genres;
   final String? homepage;
   final int id;
   final String? imdbId;
@@ -65,16 +67,6 @@ class BelongsToCollection {
     required this.name,
     required this.posterPath,
     required this.backdropPath,
-  });
-}
-
-class Genres {
-  final int id;
-  final String name;
-
-  Genres({
-    required this.id,
-    required this.name,
   });
 }
 

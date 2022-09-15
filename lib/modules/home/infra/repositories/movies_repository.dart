@@ -1,10 +1,12 @@
 import 'package:dartz/dartz.dart';
+import 'package:todo_movies/modules/home/domain/entities/genre_entity.dart';
 import 'package:todo_movies/modules/home/domain/entities/similar_movies_entity.dart';
 
 import '../../../../core/error/failure.dart';
 import '../../domain/entities/movie_details_entity.dart';
 import '../../domain/repositories/movies_repository_interface.dart';
 import '../datasources/movies_datasource_interface.dart';
+import '../models/genre_model.dart';
 import '../models/movie_details_model.dart';
 import '../models/similar_movies_model.dart';
 
@@ -38,6 +40,20 @@ class MoviesRepository extends IMoviesRepository {
       final SimilarMovies movieEntity = movieDetails.toEntity();
 
       return right(movieEntity);
+    } on Failure catch (e) {
+      return left(e);
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Genre>>> getAllGenres() async {
+    try {
+      final List<GenreModel> genders = await _movieDataSource.getAllGenres();
+
+      final List<Genre> gendersEntity =
+          genders.map((e) => e.toEntity()).toList();
+
+      return right(gendersEntity);
     } on Failure catch (e) {
       return left(e);
     }

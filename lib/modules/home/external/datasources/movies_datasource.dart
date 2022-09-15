@@ -1,3 +1,4 @@
+import 'package:todo_movies/modules/home/infra/models/genre_model.dart';
 import 'package:todo_movies/modules/home/infra/models/similar_movies_model.dart';
 
 import '../../../../core/constants/api_routes.dart';
@@ -32,6 +33,20 @@ class MoviesDataSource extends IMoviesDataSource {
 
     if (response.statusCode == 200) {
       return SimilarMoviesModel.fromMap(response.data);
+    } else {
+      throw DataSourceException(message: response.statusMessage.toString());
+    }
+  }
+
+  @override
+  Future<List<GenreModel>> getAllGenres() async {
+    final response = await _http.get(
+      ApiRoutes.genres,
+    );
+
+    if (response.statusCode == 200) {
+      final listGenres = response.data['genres'] as List;
+      return listGenres.map((e) => GenreModel.fromMap(e)).toList();
     } else {
       throw DataSourceException(message: response.statusMessage.toString());
     }

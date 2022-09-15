@@ -2,13 +2,14 @@
 import 'dart:convert';
 
 import '../../domain/entities/movie_details_entity.dart';
+import 'genre_model.dart';
 
 class MovieDetailsModel {
   final bool adult;
   final String? backdropPath;
   final BelongsToCollectionModel? belongsToCollection;
   final int budget;
-  final List<GenresModel> genres;
+  final List<GenreModel> genres;
   final String? homepage;
   final int id;
   final String? imdbId;
@@ -94,12 +95,13 @@ class MovieDetailsModel {
       adult: map['adult'] as bool,
       backdropPath:
           map['backdrop_path'] != null ? map['backdrop_path'] as String : null,
-      belongsToCollection:
-          BelongsToCollectionModel.fromMap(map['belongs_to_collection']),
+      belongsToCollection: map['belongs_to_collection'] != null
+          ? BelongsToCollectionModel.fromMap(map['belongs_to_collection'])
+          : null,
       budget: map['budget'] as int,
-      genres: List<GenresModel>.from(
+      genres: List<GenreModel>.from(
         map['genres'].map(
-          (x) => GenresModel.fromMap(x),
+          (x) => GenreModel.fromMap(x),
         ),
       ),
       homepage: map['homepage'] != null ? map['homepage'] as String : null,
@@ -176,10 +178,10 @@ class MovieDetailsModel {
 }
 
 class BelongsToCollectionModel {
-  final int id;
-  final String name;
-  final String posterPath;
-  final String backdropPath;
+  final int? id;
+  final String? name;
+  final String? posterPath;
+  final String? backdropPath;
   BelongsToCollectionModel({
     required this.id,
     required this.name,
@@ -212,44 +214,10 @@ class BelongsToCollectionModel {
           json.decode(source) as Map<String, dynamic>);
 
   BelongsToCollection toEntity() => BelongsToCollection(
-        id: id,
-        name: name,
-        posterPath: posterPath,
-        backdropPath: backdropPath,
-      );
-}
-
-class GenresModel {
-  final int id;
-  final String name;
-
-  GenresModel({
-    required this.id,
-    required this.name,
-  });
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'name': name,
-    };
-  }
-
-  factory GenresModel.fromMap(Map<String, dynamic> map) {
-    return GenresModel(
-      id: map['id'] as int,
-      name: map['name'] as String,
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory GenresModel.fromJson(String source) =>
-      GenresModel.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  Genres toEntity() => Genres(
-        id: id,
-        name: name,
+        id: id ?? 0,
+        name: name ?? '',
+        posterPath: posterPath ?? '',
+        backdropPath: backdropPath ?? '',
       );
 }
 

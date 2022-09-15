@@ -1,18 +1,31 @@
 import 'package:flutter/widgets.dart';
 
 import '../../../../core/constants/strings.dart';
+import '../../domain/entities/genre_entity.dart';
 import '../../domain/entities/similar_movies_entity.dart';
 
 class SimilarMovieCardWidget extends StatelessWidget {
   final Results movie;
+  final List<Genre> genres;
 
   const SimilarMovieCardWidget({
     Key? key,
     required this.movie,
+    required this.genres,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String genderTitles = '';
+
+    List<String> genderListTitles = [];
+    for (var genreId in movie.genreIds) {
+      final index = genres.indexWhere((e) => e.id == genreId);
+      if (index != -1) {
+        genderListTitles.add(genres[index].name);
+      }
+    }
+    genderTitles = genderListTitles.join(', ');
     return Container(
       height: 100,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -29,21 +42,23 @@ class SimilarMovieCardWidget extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           const SizedBox(width: 12),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                " ${movie.title}",
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
+          Flexible(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  " ${movie.title}",
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 4),
-              Text(" ${movie.releaseDate.year}"),
-            ],
+                const SizedBox(height: 4),
+                Text(" ${movie.releaseDate.year} $genderTitles"),
+              ],
+            ),
           ),
         ],
       ),

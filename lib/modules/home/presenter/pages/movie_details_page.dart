@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../core/constants/strings.dart';
 import '../controller/movie_controller.dart';
+import '../widgets/similar_movie_card_widget.dart';
 
 class MovieDetailsPage extends StatefulWidget {
   final MovieController controller;
@@ -22,6 +23,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
   void initState() {
     super.initState();
     widget.controller.getMovieDetails(22);
+    widget.controller.loadSimilarMovies(22);
     _scrollController = ScrollController();
   }
 
@@ -155,22 +157,32 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                                   ],
                                 ),
                               ),
-                              ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                physics: const BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                addRepaintBoundaries: true,
-                                // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                //   crossAxisCount: 2,
-                                //   childAspectRatio: (itemWidth / itemHeight),
-                                // ),
-                                itemCount: 40,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return SizedBox(
-                                    height: 40,
-                                    child: Text("$index testeee"),
-                                  );
-                                },
+                              Obx(
+                                () => widget.controller.similarMovies.value ==
+                                        null
+                                    ? const CircularProgressIndicator()
+                                    : ListView.builder(
+                                        scrollDirection: Axis.vertical,
+                                        physics: const BouncingScrollPhysics(),
+                                        shrinkWrap: true,
+                                        // addRepaintBoundaries: true,
+                                        itemCount: widget
+                                            .controller
+                                            .similarMovies
+                                            .value!
+                                            .results
+                                            .length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          final movie = widget
+                                              .controller
+                                              .similarMovies
+                                              .value!
+                                              .results[index];
+                                          return SimilarMovieCardWidget(
+                                              movie: movie);
+                                        },
+                                      ),
                               ),
                             ],
                           ),

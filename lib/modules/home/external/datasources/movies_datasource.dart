@@ -1,3 +1,5 @@
+import 'package:todo_movies/modules/home/infra/models/similar_movies_model.dart';
+
 import '../../../../core/constants/api_routes.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../core/http/http_interface.dart';
@@ -18,7 +20,20 @@ class MoviesDataSource extends IMoviesDataSource {
     if (response.statusCode == 200) {
       return MovieDetailsModel.fromMap(response.data);
     } else {
-      throw DatasourceException(message: response.statusMessage.toString());
+      throw DataSourceException(message: response.statusMessage.toString());
+    }
+  }
+
+  @override
+  Future<SimilarMoviesModel> getSimilarMovies(int movieId) async {
+    final response = await _http.get(
+      ApiRoutes.movie + "/" + movieId.toString() + ApiRoutes.similar,
+    );
+
+    if (response.statusCode == 200) {
+      return SimilarMoviesModel.fromMap(response.data);
+    } else {
+      throw DataSourceException(message: response.statusMessage.toString());
     }
   }
 }

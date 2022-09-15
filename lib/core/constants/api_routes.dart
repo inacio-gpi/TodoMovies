@@ -4,4 +4,5 @@ abstract class ApiRoutes {
   static const String _apiVersion = '/3';
 
   static const String movie = '$_apiVersion/movie';
+  static const String similar = '/similar';
 }

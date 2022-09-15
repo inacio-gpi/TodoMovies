@@ -18,8 +18,8 @@ abstract class Failure {
   }
 }
 
-class DatasourceException extends Failure {
-  DatasourceException({
+class DataSourceException extends Failure {
+  DataSourceException({
     required String message,
     StackTrace? stackTrace,
     String? label,

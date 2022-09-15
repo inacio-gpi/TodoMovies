@@ -3,6 +3,7 @@ import 'package:todo_movies/modules/home/presenter/controller/movie_controller.d
 
 import '../../core/http/http_client_adapter.dart';
 import 'domain/usecases/get_movie_details_usecase.dart';
+import 'domain/usecases/get_similar_movies_usecase.dart';
 import 'external/datasources/movies_datasource.dart';
 import 'infra/repositories/movies_repository.dart';
 
@@ -15,7 +16,11 @@ class HomeBinding extends Bindings {
         ));
     Get.lazyPut(
         () => GetMovieDetailsUseCase(repository: Get.find<MoviesRepository>()));
+    Get.lazyPut(() =>
+        GetSimilarMoviesUseCase(repository: Get.find<MoviesRepository>()));
     Get.lazyPut(() => MovieController(
-        getMovieDetailsUseCase: Get.find<GetMovieDetailsUseCase>()));
+          getMovieDetailsUseCase: Get.find<GetMovieDetailsUseCase>(),
+          getSimilarMoviesUseCase: Get.find<GetSimilarMoviesUseCase>(),
+        ));
   }
 }

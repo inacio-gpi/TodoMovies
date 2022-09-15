@@ -28,7 +28,7 @@ O <strong>TodoMovie</strong> é uma aplicação Mobile usada como requisito de e
 
 <h1 align="center">
     <img alt="Mobile Main" src=".github/main_image.png" width="300px">
-    <img alt="Mobile Cloned" src=".github/cloned_image.svg" width="300px">
+    <img alt="Mobile Cloned" src=".github/cloned_image.png" width="300px">
 </h1>
 
 <a id="como-contribuir"></a>

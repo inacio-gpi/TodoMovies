@@ -59,30 +59,32 @@ class MovieDetailsModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'adult': adult,
-      'backdropPath': backdropPath,
-      'belongsToCollection': belongsToCollection,
+      'backdrop_path': backdropPath,
+      'belongs_to_collection': belongsToCollection,
       'budget': budget,
       'genres': genres.map((x) => x.toMap()).toList(),
       'homepage': homepage,
       'id': id,
-      'imdbId': imdbId,
-      'originalLanguage': originalLanguage,
-      'originalTitle': originalTitle,
+      'imdb_id': imdbId,
+      'original_language': originalLanguage,
+      'original_title': originalTitle,
       'overview': overview,
       'popularity': popularity,
-      'posterPath': posterPath,
-      'productionCompanies': productionCompanies.map((x) => x.toMap()).toList(),
-      'productionCountries': productionCountries.map((x) => x.toMap()).toList(),
-      'releaseDate': releaseDate.millisecondsSinceEpoch,
+      'poster_path': posterPath,
+      'production_companies':
+          productionCompanies.map((x) => x.toMap()).toList(),
+      'production_countries':
+          productionCountries.map((x) => x.toMap()).toList(),
+      'release_date': releaseDate.millisecondsSinceEpoch,
       'revenue': revenue,
       'runtime': runtime,
-      'spokenLanguages': spokenLanguages.map((x) => x.toMap()).toList(),
+      'spoken_languages': spokenLanguages.map((x) => x.toMap()).toList(),
       'status': status,
       'tagline': tagline,
       'title': title,
       'video': video,
-      'voteAverage': voteAverage,
-      'voteCount': voteCount,
+      'vote_average': voteAverage,
+      'vote_count': voteCount,
     };
   }
 
@@ -90,51 +92,50 @@ class MovieDetailsModel {
     return MovieDetailsModel(
       adult: map['adult'] as bool,
       backdropPath:
-          map['backdropPath'] != null ? map['backdropPath'] as String : null,
-      belongsToCollection: map['belongsToCollection'] != null
-          ? map['belongsToCollection'] as String
+          map['backdrop_path'] != null ? map['backdrop_path'] as String : null,
+      belongsToCollection: map['belongs_to_collection'] != null
+          ? map['belongs_to_collection'] as String
           : null,
       budget: map['budget'] as int,
       genres: List<GenresModel>.from(
-        (map['genres'] as List<int>).map<GenresModel>(
-          (x) => GenresModel.fromMap(x as Map<String, dynamic>),
+        map['genres'].map(
+          (x) => GenresModel.fromMap(x),
         ),
       ),
       homepage: map['homepage'] != null ? map['homepage'] as String : null,
       id: map['id'] as int,
-      imdbId: map['imdbId'] != null ? map['imdbId'] as String : null,
-      originalLanguage: map['originalLanguage'] as String,
-      originalTitle: map['originalTitle'] as String,
+      imdbId: map['imdb_id'] != null ? map['imdb_id'] as String : null,
+      originalLanguage: map['original_language'] as String,
+      originalTitle: map['original_title'] as String,
       overview: map['overview'] != null ? map['overview'] as String : null,
       popularity:
           map['popularity'] != null ? map['popularity'] as double : null,
       posterPath:
-          map['posterPath'] != null ? map['posterPath'] as String : null,
+          map['poster_path'] != null ? map['poster_path'] as String : null,
       productionCompanies: List<ProductionCompaniesModel>.from(
-        (map['productionCompanies'] as List<int>).map<ProductionCompaniesModel>(
-          (x) => ProductionCompaniesModel.fromMap(x as Map<String, dynamic>),
+        map['production_companies'].map<ProductionCompaniesModel>(
+          (x) => ProductionCompaniesModel.fromMap(x),
         ),
       ),
       productionCountries: List<ProductionCountriesModel>.from(
-        (map['productionCountries'] as List<int>).map<ProductionCountriesModel>(
-          (x) => ProductionCountriesModel.fromMap(x as Map<String, dynamic>),
+        map['production_countries'].map<ProductionCountriesModel>(
+          (x) => ProductionCountriesModel.fromMap(x),
         ),
       ),
-      releaseDate:
-          DateTime.fromMillisecondsSinceEpoch(map['releaseDate'] as int),
+      releaseDate: DateTime.parse(map['release_date']),
       revenue: map['revenue'] as int,
       runtime: map['runtime'] != null ? map['runtime'] as int : null,
       spokenLanguages: List<SpokenLanguagesModel>.from(
-        (map['spokenLanguages'] as List<int>).map<SpokenLanguagesModel>(
-          (x) => SpokenLanguagesModel.fromMap(x as Map<String, dynamic>),
+        map['spoken_languages'].map<SpokenLanguagesModel>(
+          (x) => SpokenLanguagesModel.fromMap(x),
         ),
       ),
       status: map['status'] as String,
       tagline: map['tagline'] != null ? map['tagline'] as String : null,
       title: map['title'] as String,
       video: map['video'] as bool,
-      voteAverage: map['voteAverage'] as double,
-      voteCount: map['voteCount'] as int,
+      voteAverage: map['vote_average'] as double,
+      voteCount: map['vote_count'] as int,
     );
   }
 
@@ -224,18 +225,18 @@ class ProductionCompaniesModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'logoPath': logoPath,
+      'logo_path': logoPath,
       'name': name,
-      'originCountry': originCountry,
+      'origin_country': originCountry,
     };
   }
 
   factory ProductionCompaniesModel.fromMap(Map<String, dynamic> map) {
     return ProductionCompaniesModel(
       id: map['id'] as int,
-      logoPath: map['logoPath'] != null ? map['logoPath'] as String : null,
+      logoPath: map['logo_path'] != null ? map['logo_path'] as String : null,
       name: map['name'] as String,
-      originCountry: map['originCountry'] as String,
+      originCountry: map['origin_country'] as String,
     );
   }
 
@@ -264,14 +265,14 @@ class ProductionCountriesModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'iso31661': iso31661,
+      'iso_3166_1': iso31661,
       'name': name,
     };
   }
 
   factory ProductionCountriesModel.fromMap(Map<String, dynamic> map) {
     return ProductionCountriesModel(
-      iso31661: map['iso31661'] as String,
+      iso31661: map['iso_3166_1'] as String,
       name: map['name'] as String,
     );
   }
@@ -299,14 +300,14 @@ class SpokenLanguagesModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'iso6391': iso6391,
+      'iso_639_1': iso6391,
       'name': name,
     };
   }
 
   factory SpokenLanguagesModel.fromMap(Map<String, dynamic> map) {
     return SpokenLanguagesModel(
-      iso6391: map['iso6391'] as String,
+      iso6391: map['iso_639_1'] as String,
       name: map['name'] as String,
     );
   }

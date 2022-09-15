@@ -17,3 +17,15 @@ abstract class Failure {
     return '$runtimeType: $message';
   }
 }
+
+class DatasourceException extends Failure {
+  DatasourceException({
+    required String message,
+    StackTrace? stackTrace,
+    String? label,
+  }) : super(
+          message: message,
+          stackTrace: stackTrace,
+          label: label,
+        );
+}

@@ -22,7 +22,7 @@ class MovieDetailsPage extends StatefulWidget {
 
 class _MovieDetailsPageState extends State<MovieDetailsPage> {
   late ScrollController _scrollController;
-  final int movieId = 40;
+  final int movieId = 38;
   @override
   void initState() {
     super.initState();

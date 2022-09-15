@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import '../../domain/entities/movie_details_entity.dart';
@@ -5,7 +6,7 @@ import '../../domain/entities/movie_details_entity.dart';
 class MovieDetailsModel {
   final bool adult;
   final String? backdropPath;
-  final String? belongsToCollection;
+  final BelongsToCollectionModel? belongsToCollection;
   final int budget;
   final List<GenresModel> genres;
   final String? homepage;
@@ -93,9 +94,8 @@ class MovieDetailsModel {
       adult: map['adult'] as bool,
       backdropPath:
           map['backdrop_path'] != null ? map['backdrop_path'] as String : null,
-      belongsToCollection: map['belongs_to_collection'] != null
-          ? map['belongs_to_collection'] as String
-          : null,
+      belongsToCollection:
+          BelongsToCollectionModel.fromMap(map['belongs_to_collection']),
       budget: map['budget'] as int,
       genres: List<GenresModel>.from(
         map['genres'].map(
@@ -147,7 +147,7 @@ class MovieDetailsModel {
   MovieDetails toEntity() => MovieDetails(
         adult: adult,
         backdropPath: backdropPath,
-        belongsToCollection: belongsToCollection,
+        belongsToCollection: belongsToCollection?.toEntity(),
         budget: budget,
         genres: genres.map((e) => e.toEntity()).toList(),
         homepage: homepage,
@@ -172,6 +172,50 @@ class MovieDetailsModel {
         video: video,
         voteAverage: voteAverage,
         voteCount: voteCount,
+      );
+}
+
+class BelongsToCollectionModel {
+  final int id;
+  final String name;
+  final String posterPath;
+  final String backdropPath;
+  BelongsToCollectionModel({
+    required this.id,
+    required this.name,
+    required this.posterPath,
+    required this.backdropPath,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'name': name,
+      'poster_path': posterPath,
+      'backdrop_path': backdropPath,
+    };
+  }
+
+  factory BelongsToCollectionModel.fromMap(Map<String, dynamic> map) {
+    return BelongsToCollectionModel(
+      id: map['id'],
+      name: map['name'],
+      posterPath: map['poster_path'],
+      backdropPath: map['backdrop_path'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory BelongsToCollectionModel.fromJson(String source) =>
+      BelongsToCollectionModel.fromMap(
+          json.decode(source) as Map<String, dynamic>);
+
+  BelongsToCollection toEntity() => BelongsToCollection(
+        id: id,
+        name: name,
+        posterPath: posterPath,
+        backdropPath: backdropPath,
       );
 }
 
